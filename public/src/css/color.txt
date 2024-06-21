@@ -1,0 +1,6 @@
+hijau : #06D001
+biru : #1679AB
+kuning : #FFDB00
+merah : #E72929
+hitam : #151515
+putih : #dfdfdf
