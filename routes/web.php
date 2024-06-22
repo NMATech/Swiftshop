@@ -26,7 +26,9 @@ Route::get('/register', [ControlerUser::class, 'register']);
 Route::post('/regist', [authController::class, 'store'])->name('users.store');
 Route::get('/shop', [ControlerUser::class, 'products']);
 Route::get('/filter', [ControlerUser::class, 'filter']);
+Route::get('/products_{category}', [ControlerUser::class, 'filter2']);
 Route::get('/product-{id}', [ControlerUser::class, 'single_product'])->name('product');
+Route::get('/about_us', [ControlerUser::class, 'about_us'])->name('about_us');
 
 Route::get('/admin', function () {
     return view('admin.pages.home');

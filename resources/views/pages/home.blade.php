@@ -31,7 +31,7 @@
                 <h1 class="font-bold text-white">Play</h1>
                 <h1 class="font-bold text-white text-xl">Sensitivity</h1>
                 <h1 class="font-bold text-2xl text-gray-400/30 mb-3">MOUSE</h1>
-                <a href="">
+                <a href="/products_{{ 'mouse' }}">
                     <button class="py-[4px] px-[8px] rounded-xl bg-[#E72929] text-white text-sm">Browse</button>
                 </a>
                 <img src="{{ asset('src/img/mouse.png') }}" alt=""
@@ -43,7 +43,7 @@
                 <h1 class="font-bold text-white">Move</h1>
                 <h1 class="font-bold text-white text-xl">Wear</h1>
                 <h1 class="font-bold text-2xl text-white/50 mb-3">GADGET</h1>
-                <a href="">
+                <a href="/products_{{ 'smartwatch' }}">
                     <button class="py-[4px] px-[8px] rounded-xl bg-[#dfdfdf] text-[#FFDB00] text-sm">Browse</button>
                 </a>
                 <img src="{{ asset('src/img/smart_watch.png') }}" alt=""
@@ -55,7 +55,7 @@
                 <h1 class="font-bold text-white">Trend</h1>
                 <h1 class="font-bold text-white text-xl">Devices</h1>
                 <h1 class="font-bold text-2xl text-white/50 mb-3">LAPTOP</h1>
-                <a href="">
+                <a href="/products_{{ 'laptop' }}">
                     <button class="py-[4px] px-[8px] rounded-xl bg-[#dfdfdf] text-[#E72929] text-sm">Browse</button>
                 </a>
                 <img src="{{ asset('src/img/Asus.png') }}" alt="" class="absolute rotate-25 w-[200px] ml-[8em]">
@@ -66,7 +66,7 @@
                 <h1 class="font-bold text-white">Best</h1>
                 <h1 class="font-bold text-white text-xl">Gaming</h1>
                 <h1 class="font-bold text-2xl text-white/50 mb-3">KEYBOARD</h1>
-                <a href="">
+                <a href="/products_{{ 'keyboard' }}">
                     <button class="py-[4px] px-[8px] rounded-xl bg-[#dfdfdf] text-[#06D001] text-sm">Browse</button>
                 </a>
                 <img src="{{ asset('src/img/keyboard_wireless.png') }}" alt=""
@@ -78,7 +78,7 @@
                 <h1 class="font-bold text-white">Enjoy</h1>
                 <h1 class="font-bold text-white text-xl">With</h1>
                 <h1 class="font-bold text-2xl text-white/50 mb-3">HEADSET</h1>
-                <a href="">
+                <a href="/products_{{ 'headphone' }}">
                     <button class="py-[4px] px-[8px] rounded-xl bg-[#DFDFDF] text-[#1679AB] text-sm">Browse</button>
                 </a>
                 <img src="{{ asset('src/img/razer_headset.png') }}" alt=""
@@ -132,7 +132,7 @@
             <h1 class="font-bold text-white text-4xl">Summer Sale</h1>
             <h1 class="font-bold text-sm text-white/50 mb-3">Complete that's grown from 400 to 299 employees in the least
                 12 month.</h1>
-            <a href="">
+            <a href="/products_{{ 'headphone' }}">
                 <button class="py-[8px] px-[16px] rounded-xl bg-[#DFDFDF] text-[#E72929] text-sm">Shop</button>
             </a>
         </div>
@@ -202,7 +202,7 @@
             <h1 class="font-bold text-white text-4xl">Summer Sale</h1>
             <h1 class="font-bold text-sm text-white/50 mb-3">Complete that's grown from 400 to 299 employees in the least
                 12 month.</h1>
-            <a href="">
+            <a href="/products_{{ 'smartwatch' }}">
                 <button class="py-[8px] px-[16px] rounded-xl bg-[#DFDFDF] text-[#1679AB] text-sm">Shop</button>
             </a>
         </div>

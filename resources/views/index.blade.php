@@ -29,7 +29,7 @@
                     <a href="/shop" class="hover:border-b-2 hover:border-[#E72929]">Shop</a>
                 </li>
                 <li>
-                    <a href="" class="hover:border-b-2 hover:border-[#E72929]">About Us</a>
+                    <a href="/about_us" class="hover:border-b-2 hover:border-[#E72929]">About Us</a>
                 </li>
                 <li>
                     <a href="" class="hover:border-b-2 hover:border-[#E72929]">Contact Us</a>
@@ -106,7 +106,7 @@
                         <a href="/shop" class="hover:text-[#E72929] hover:font-bold">Shop</a>
                     </li>
                     <li>
-                        <a href="" class="hover:text-[#E72929] hover:font-bold">About Us</a>
+                        <a href="/about_us" class="hover:text-[#E72929] hover:font-bold">About Us</a>
                     </li>
                     <li>
                         <a href="" class="hover:text-[#E72929] hover:font-bold">Contact Us</a>

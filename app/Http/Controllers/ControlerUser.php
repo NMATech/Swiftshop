@@ -50,7 +50,7 @@ class ControlerUser extends Controller
 
     public function products()
     {
-        
+
         $products = Product::all();
 
         return view('pages.products', ['products' => $products]);
@@ -74,6 +74,17 @@ class ControlerUser extends Controller
         return view('pages.products', ['products' => $products]);
     }
 
+    public function filter2(string $category)
+    {
+        $kategori = $category;
+
+        $products = Product::when($kategori, function ($query, $kategori) {
+            return $query->where('category', $kategori);
+        })->get();
+
+        return view('pages.products', ['products' => $products]);
+    }
+
     public function single_product(string $id)
     {
         $product = Product::find($id);
@@ -90,5 +101,10 @@ class ControlerUser extends Controller
 
 
         return view('pages.single_product', ['product' => $product, 'check' => $checkStock]);
+    }
+
+    public function about_us()
+    {
+        return view('pages.about_us');
     }
 }
