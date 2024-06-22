@@ -20,12 +20,13 @@ Route::get('/', function () {
     return view('pages.home');
 })->name('home');
 
-Route::get('/login', [ControlerUser::class, 'login']);
+Route::get('/login', [ControlerUser::class, 'login'])->name('login.page');
 Route::post('/login', [authController::class, 'login'])->name('users.login');
 Route::get('/register', [ControlerUser::class, 'register']);
 Route::post('/regist', [authController::class, 'store'])->name('users.store');
 Route::get('/shop', [ControlerUser::class, 'products']);
 Route::get('/filter', [ControlerUser::class, 'filter']);
+Route::get('/product-{id}', [ControlerUser::class, 'single_product'])->name('product');
 
 Route::get('/admin', function () {
     return view('admin.pages.home');

@@ -20,7 +20,7 @@
 <body class="font-[Poppins]">
     <nav class="flex justify-around items-center p-2 shadow-xl">
         <div class="w-[50%] flex justify-between">
-            <h1 class="text-2xl font-[Playwrite IS]">SwiftShop</h1>
+            <h1 class="text-2xl font-[Playwrite IS] font-bold">SwiftShop</h1>
             <ul class="flex gap-[20px]">
                 <li>
                     <a href="/" class="hover:border-b-2 hover:border-[#E72929]">Home</a>
@@ -75,7 +75,8 @@
     <footer>
         <div class="flex w-full mt-[30px] p-5">
             <div class="w-[30%] p-2">
-                <div class="">
+                <h1 class="text-3xl font-bold font-[Playwrite IS]">Swiftshop</h1>
+                <div class=" mt-[10px]">
                     <p>
                         We pride ourselves on offering cutting-edge products at competitive prices, all in US dollars.
                         Experience seamless shopping and unparalleled customer service with SwiftShop. Thank you for
@@ -95,14 +96,14 @@
                     </div>
                 </div>
             </div>
-            <div class="w-[20%]">
+            <div class="w-[20%] mt-[3em] ml-[4em]">
                 <h1 class="font-bold">QUICK LINKS</h1>
                 <ul class="flex flex-col gap-[5px] ml-[5px] mt-[10px]">
                     <li>
-                        <a href="" class="hover:text-[#E72929] hover:font-bold">Home</a>
+                        <a href="/" class="hover:text-[#E72929] hover:font-bold">Home</a>
                     </li>
                     <li>
-                        <a href="" class="hover:text-[#E72929] hover:font-bold">Shop</a>
+                        <a href="/shop" class="hover:text-[#E72929] hover:font-bold">Shop</a>
                     </li>
                     <li>
                         <a href="" class="hover:text-[#E72929] hover:font-bold">About Us</a>
@@ -112,7 +113,7 @@
                     </li>
                 </ul>
             </div>
-            <div class="w-[20%]">
+            <div class="w-[20%] mt-[3em] ml-[-4em]">
                 <h1 class="font-bold">CONTACT</h1>
                 <div class="p-2 mt-[10px]">
                     <div class="flex justify-start items-center gap-[5px]">
@@ -124,9 +125,6 @@
                         <h1>+62 8588 0046 909</h1>
                     </div>
                 </div>
-            </div>
-            <div class="w-[25%]">
-
             </div>
         </div>
         <div class="bg-gray-800 w-full p-2 text-center">

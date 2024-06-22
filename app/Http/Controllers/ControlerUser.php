@@ -45,11 +45,12 @@ class ControlerUser extends Controller
 
         $users->save();
 
-        return redirect()->route('/')->with('success', 'Anda berhasil register.');
+        return redirect()->route('login.page')->with('success', 'Anda berhasil register.');
     }
 
     public function products()
     {
+        
         $products = Product::all();
 
         return view('pages.products', ['products' => $products]);
@@ -71,5 +72,23 @@ class ControlerUser extends Controller
         })->get();
 
         return view('pages.products', ['products' => $products]);
+    }
+
+    public function single_product(string $id)
+    {
+        $product = Product::find($id);
+
+        $checkStock = [];
+
+        $stock = $product::where('stock', '>', 1)->get();
+
+        if ($stock->isEmpty()) {
+            $checkStock['stock'] = 'Stock Empty';
+        } else {
+            $checkStock['stock'] = 'In Stock';
+        }
+
+
+        return view('pages.single_product', ['product' => $product, 'check' => $checkStock]);
     }
 }

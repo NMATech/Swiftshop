@@ -1,7 +1,6 @@
 @extends('index')
 
 @section('content')
-    <h1>{{ $user }}</h1>
     {{-- Hero --}}
     <div
         class="flex flex-col justify-center items-center bg-red-500 w-full h-[430px] bg-gradient-to-br from-gray-400 to-gray-300 my-1 rounded-xl p-2 py-5 shadow-xl">

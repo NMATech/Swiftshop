@@ -60,7 +60,7 @@
                     <h1 class="font-bold">${{ $product->price }}</h1>
                 </div>
                 <div class="w-full p-1">
-                    <a href="">
+                    <a href="/product-{{ $product->id }}">
                         <div class="bg-[#E72929] w-max rounded-xl px-[12px] py-[4px]">
                             <h1 class="text-md text-white">See Details</h1>
                         </div>
