@@ -37,14 +37,17 @@
             </ul>
         </div>
         <div class="flex items-center w-[30%] justify-end gap-[20px]">
+            @if (!isset($logged_in_user))
+                <div class="">
+                    <a href="/login">
+                        <button class="rounded-lg py-1 px-2 hover:border hover:border-gray-400">Login</button>
+                    </a>
+                </div>
+            @endif
             <div class="">
-                <a href="">
-                    <button class="rounded-lg py-1 px-2 hover:border hover:border-gray-400">Login</button>
-                </a>
-            </div>
-            <div class="">
-                <form action="" class="flex justify-center items-center gap-[5px]">
-                    <input type="text"
+                <form action="/filter" class="flex justify-center items-center gap-[5px]">
+                    @csrf
+                    <input type="text" name="category" id="category"
                         class="border border-gray-400 p-1 focus:outline-none focus:ring-[#E72929] focus:ring-1 focus:border-none">
                     <button>
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -55,14 +58,26 @@
                     </button>
                 </form>
             </div>
-            <div class="w-[10%] flex justify-center items-center">
-                <a href="">
+            <div class="w-[10%] flex justify-center items-center gap-[10px]">
+                <a href="/carts">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                         stroke="currentColor" class="size-8">
                         <path stroke-linecap="round" stroke-linejoin="round"
                             d="M15.75 10.5V6a3.75 3.75 0 1 0-7.5 0v4.5m11.356-1.993 1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 0 1-1.12-1.243l1.264-12A1.125 1.125 0 0 1 5.513 7.5h12.974c.576 0 1.059.435 1.119 1.007ZM8.625 10.5a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm7.5 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
                     </svg>
+                    @if ($cartItems->count() > 1)
+                        <div class="absolute rounded-full px-2 bg-[#E72929] mt-[-35px] ml-[10px]">
+                            <h1 class="text-white font-bold">{{ $cartItems->count() }}</h1>
+                        </div>
+                    @endif
                 </a>
+                @if (isset($logged_in_user))
+                    <button id="profileButton" class="w-full relative">
+                        <div class="w-max">
+                            <img src="{{ asset('src/img/noprofil.jpg') }}" alt="Profile" class="w-[30px] rounded-full">
+                        </div>
+                    </button>
+                @endif
             </div>
         </div>
     </nav>
@@ -70,6 +85,36 @@
     <main class="p-2">
         @yield('content')
     </main>
+
+    {{-- card container profile --}}
+    <div id="profileContainer"
+        class="hidden w-[200px] flex flex-col gap-[10px] bg-[#151515] absolute top-0 right-0 mt-[40px] p-2 rounded-tl-2xl rounded-bl-2xl text-white transition-transform transform -translate-x-full opacity-0">
+        <div>
+            <div>
+                <h1>First name</h1>
+                @if (isset($logged_in_user))
+                    <h1>{{ $logged_in_user->fname }}</h1>
+                @endif
+            </div>
+            <div>
+                <h1>Last name</h1>
+                @if (isset($logged_in_user))
+                    <h1>{{ $logged_in_user->lname }}</h1>
+                @endif
+            </div>
+        </div>
+        <a href="/logout">
+            <div class="w-full flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                    stroke="currentColor" class="size-6">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M8.25 9V5.25A2.25 2.25 0 0 1 10.5 3h6a2.25 2.25 0 0 1 2.25 2.25v13.5A2.25 2.25 0 0 1 16.5 21h-6a2.25 2.25 0 0 1-2.25-2.25V15m-3 0-3-3m0 0 3-3m-3 3H15" />
+                </svg>
+                <h1>Logout</h1>
+            </div>
+        </a>
+    </div>
+    {{-- card container profile end --}}
 
     {{-- Footer --}}
     <footer>
@@ -132,6 +177,45 @@
         </div>
     </footer>
     {{-- Footer end --}}
+
+    {{-- Javascript --}}
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var profileButton = document.getElementById('profileButton');
+            var profileContainer = document.getElementById('profileContainer');
+
+            profileButton.addEventListener('click', function() {
+                if (profileContainer.classList.contains('hidden')) {
+                    profileContainer.classList.remove('hidden');
+                    profileContainer.classList.remove('-translate-x-full');
+                    profileContainer.classList.remove('opacity-0');
+                    profileContainer.classList.add('translate-x-0');
+                    profileContainer.classList.add('opacity-100');
+                } else {
+                    profileContainer.classList.add('-translate-x-full');
+                    profileContainer.classList.add('opacity-0');
+                    profileContainer.classList.remove('translate-x-0');
+                    profileContainer.classList.remove('opacity-100');
+                    setTimeout(function() {
+                        profileContainer.classList.add('hidden');
+                    }, 300); // Delay to match the transition duration
+                }
+            });
+
+            document.addEventListener('click', function(event) {
+                if (!profileButton.contains(event.target) && !profileContainer.contains(event.target)) {
+                    profileContainer.classList.add('-translate-x-full');
+                    profileContainer.classList.add('opacity-0');
+                    profileContainer.classList.remove('translate-x-0');
+                    profileContainer.classList.remove('opacity-100');
+                    setTimeout(function() {
+                        profileContainer.classList.add('hidden');
+                    }, 300); // Delay to match the transition duration
+                }
+            });
+        });
+    </script>
+
 </body>
 
 </html>

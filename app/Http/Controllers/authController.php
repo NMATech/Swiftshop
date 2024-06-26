@@ -101,7 +101,7 @@ class authController extends Controller
             $request->session()->regenerate();
             $user = Auth::user();
 
-            return view('pages.home', ['user' => $user]);
+            return redirect()->route('home');
         }
 
         // If login fails, redirect back with error

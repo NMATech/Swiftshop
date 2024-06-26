@@ -26,22 +26,46 @@
                 <h1 class="text-xl text-center font-bold text-[#E72929] mt-[20px] mb-[10px]">{{ $check['stock'] }}</h1>
             @endif
 
-            <div class="flex items-center gap-[10px]">
-                <h1 class="">Quantity : </h1>
-                <select name="" id=""
-                    class="w-[60%] rounded-xl py-[2px] px-[4px] border border-gray-400 focus:outline-none focus:ring-[#E72929] focus:ring-1">
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                </select>
-            </div>
+            <form action="/add_to_cart" method="post">
+                @csrf
+                @if (isset($logged_in_user))
+                    <input type="text" name="user_id" id="user_id" value="{{ $logged_in_user->id }}" class="hidden">
+                @else
+                    <h1>Please login first to make an order</h1>
+                @endif
+                <input type="text" name="product_id" id="product_id" value="{{ $product->id }}" class="hidden">
+                <div class="flex items-center gap-[10px]">
+                    <h1 class="">Quantity : </h1>
+                    <select name="quantity" id="quantity"
+                        class="w-[60%] rounded-xl py-[2px] px-[4px] border border-gray-400 focus:outline-none focus:ring-[#E72929] focus:ring-1">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                    </select>
+                </div>
 
-            <div class="flex flex-col justify-center items-center gap-[10px] mt-[10px]">
-                <button class="w-[90%] rounded-full bg-[#FFDB00] hover:bg-[#FFDB00]/80">Add to Cart</button>
-                <button class="w-[90%] rounded-full bg-[#1679AB] hover:bg-[#1679AB]/80">Buy Now</button>
-            </div>
+                <div class="flex flex-col justify-center items-center gap-[10px] mt-[10px]">
+                    <button class="w-[90%] rounded-full bg-[#FFDB00] hover:bg-[#FFDB00]/80">Add to Cart</button>
+                    <button class="w-[90%] rounded-full bg-[#1679AB] hover:bg-[#1679AB]/80">Buy Now</button>
+                </div>
+            </form>
+
+            @if (session('success'))
+                <div id="success-notification" class="fixed top-0 left-0 w-full bg-green-500 text-white text-center p-4">
+                    {{ session('success') }}
+                </div>
+                <script>
+                    // Remove the notification after 3 seconds
+                    setTimeout(function() {
+                        var notification = document.getElementById('success-notification');
+                        if (notification) {
+                            notification.style.display = 'none';
+                        }
+                    }, 3000);
+                </script>
+            @endif
         </div>
     </div>
 @endsection

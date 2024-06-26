@@ -16,19 +16,22 @@ use App\Http\Controllers\authController;
 |
 */
 
-Route::get('/', function () {
-    return view('pages.home');
-})->name('home');
+Route::get('/', [ControlerUser::class, 'home'])->name('home');
 
 Route::get('/login', [ControlerUser::class, 'login'])->name('login.page');
 Route::post('/login', [authController::class, 'login'])->name('users.login');
+Route::get('/logout', [authController::class, 'logout'])->name('users.logout');
 Route::get('/register', [ControlerUser::class, 'register']);
 Route::post('/regist', [authController::class, 'store'])->name('users.store');
 Route::get('/shop', [ControlerUser::class, 'products']);
 Route::get('/filter', [ControlerUser::class, 'filter']);
 Route::get('/products_{category}', [ControlerUser::class, 'filter2']);
+Route::post('/filter', [ControlerUser::class, 'filter']);
 Route::get('/product-{id}', [ControlerUser::class, 'single_product'])->name('product');
 Route::get('/about_us', [ControlerUser::class, 'about_us'])->name('about_us');
+Route::post('/add_to_cart', [ControlerUser::class, 'carts'])->name('cart');
+Route::get('/carts', [ControlerUser::class, 'cart'])->name('carts');
+Route::get('/delete_cart_{id}', [ControlerUser::class, 'deletecart'])->name('delete_cart');
 
 Route::get('/admin', function () {
     return view('admin.pages.home');
