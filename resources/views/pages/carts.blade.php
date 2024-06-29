@@ -50,32 +50,4 @@
             </div>
         </div>
     </div>
-
-    @if (session('success'))
-        <div id="success-notification" class="fixed top-0 left-0 w-full bg-green-500 text-white text-center p-4">
-            {{ session('success') }}
-        </div>
-        <script>
-            // Remove the notification after 3 seconds
-            setTimeout(function() {
-                var notification = document.getElementById('success-notification');
-                if (notification) {
-                    notification.style.display = 'none';
-                }
-            }, 3000);
-        </script>
-    @elseif (session('error'))
-        <div id="error-notification" class="fixed top-0 left-0 w-full bg-red-500 text-white text-center p-4">
-            {{ session('error') }}
-        </div>
-        <script>
-            // Remove the notification after 3 seconds
-            setTimeout(function() {
-                var notification = document.getElementById('error-notification');
-                if (notification) {
-                    notification.style.display = 'none';
-                }
-            }, 3000);
-        </script>
-    @endif
 @endsection

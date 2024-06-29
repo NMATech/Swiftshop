@@ -70,8 +70,8 @@
             <h1 class="font-bold text-4xl">Our Store Location</h1>
         </div>
         <iframe
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3153.0862174975446!2d144.9632803157433!3d-37.81421787975186!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6ad642af0f11fd81%3A0xf5772074ef6e7d11!2sFederation%20Square!5e0!3m2!1sen!2sau!4v1620285126535!5m2!1sen!2sau"
-            width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" class="w-full h-96 mt-[30px]">
-        </iframe>
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.51200739436!2d106.81904287413077!3d-6.195972660698823!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f421963cd607%3A0x19a795d66b67f6ce!2sWellcomm%20Shop%20Grand%20Indonesia!5e0!3m2!1sid!2sid!4v1719634937909!5m2!1sid!2sid"
+            width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade" class="w-full h-62 mt-[30px]"></iframe>
     </div>
 @endsection

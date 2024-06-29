@@ -65,10 +65,12 @@
                         <path stroke-linecap="round" stroke-linejoin="round"
                             d="M15.75 10.5V6a3.75 3.75 0 1 0-7.5 0v4.5m11.356-1.993 1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 0 1-1.12-1.243l1.264-12A1.125 1.125 0 0 1 5.513 7.5h12.974c.576 0 1.059.435 1.119 1.007ZM8.625 10.5a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm7.5 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
                     </svg>
-                    @if ($cartItems->count() > 1)
-                        <div class="absolute rounded-full px-2 bg-[#E72929] mt-[-35px] ml-[10px]">
-                            <h1 class="text-white font-bold">{{ $cartItems->count() }}</h1>
-                        </div>
+                    @if (isset($logged_in_user))
+                        @if ($cartItems->count() >= 1)
+                            <div class="absolute rounded-full px-2 bg-[#E72929] mt-[-35px] ml-[10px]">
+                                <h1 class="text-white font-bold">{{ $cartItems->count() }}</h1>
+                            </div>
+                        @endif
                     @endif
                 </a>
                 @if (isset($logged_in_user))
@@ -116,6 +118,34 @@
     </div>
     {{-- card container profile end --}}
 
+    @if (session('success'))
+        <div id="success-notification" class="fixed top-0 left-0 w-full bg-green-500 text-white text-center p-4">
+            {{ session('success') }}
+        </div>
+        <script>
+            // Remove the notification after 3 seconds
+            setTimeout(function() {
+                var notification = document.getElementById('success-notification');
+                if (notification) {
+                    notification.style.display = 'none';
+                }
+            }, 3000);
+        </script>
+    @elseif (session('error'))
+        <div id="error-notification" class="fixed top-0 left-0 w-full bg-red-500 text-white text-center p-4">
+            {{ session('error') }}
+        </div>
+        <script>
+            // Remove the notification after 3 seconds
+            setTimeout(function() {
+                var notification = document.getElementById('error-notification');
+                if (notification) {
+                    notification.style.display = 'none';
+                }
+            }, 3000);
+        </script>
+    @endif
+
     {{-- Footer --}}
     <footer>
         <div class="flex w-full mt-[30px] p-5">
@@ -128,12 +158,12 @@
                         choosing us for your tech needs!
                     </p>
                     <div class="flex gap-[10px] mt-[10px]">
-                        <a href="">
+                        <a href="https://instagram.com/itsnadin_ra" target="_blank">
                             <div class="rounded-full hover:bg-[#E72929] hover:text-white py-1 px-3 w-max">
                                 <i class="fa fa-instagram fa-lg" aria-hidden="true" class="text-[10px]"></i>
                             </div>
                         </a>
-                        <a href="">
+                        <a href="https://linkedin.com/nadindra-maulana-aziz" target="_blank">
                             <div class="rounded-full hover:bg-[#E72929] hover:text-white py-1 px-3 w-max">
                                 <i class="fa fa-linkedin fa-lg" aria-hidden="true" class="text-[10px]"></i>
                             </div>

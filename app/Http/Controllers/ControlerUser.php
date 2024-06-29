@@ -16,22 +16,35 @@ class ControlerUser extends Controller
     {
         $user = Auth::user();
 
-        if (!$user) {
-            // Handle case where user is not authenticated
-            return redirect()->route('login')->withErrors(['login' => 'Please login to view your cart.']);
+        // Get all cart items for the logged-in user
+        if ($user) {
+            $cartItems = Cart::where('user_id', $user->id)->get();
+            return view('pages.home', ['cartItems' => $cartItems]);
+        } else {
+            return view('pages.home');
         }
 
-        // Get all cart items for the logged-in user
-        $cartItems = Cart::where('user_id', $user->id)->get();
-
-        return view('pages.home', ['cartItems' => $cartItems]);
     }
     public function register()
     {
+        $user = Auth::user();
+
+        if ($user) {
+            // Handle case where user is not authenticated
+            return redirect()->route('home')->withErrors(['login' => 'Session valid!']);
+        }
+
         return view('auth.register', ['title' => 'Register']);
     }
     public function login()
     {
+        $user = Auth::user();
+
+        if ($user) {
+            // Handle case where user is not authenticated
+            return redirect()->route('home')->withErrors(['login' => 'Session valid!']);
+        }
+
         return view('auth.login', ['title' => 'Login']);
     }
 
@@ -68,31 +81,20 @@ class ControlerUser extends Controller
     public function products()
     {
         $user = Auth::user();
-
-        if (!$user) {
-            // Handle case where user is not authenticated
-            return redirect()->route('login')->withErrors(['login' => 'Please login to view your cart.']);
-        }
-
-        // Get all cart items for the logged-in user
-        $cartItems = Cart::where('user_id', $user->id)->get();
-
         $products = Product::all();
 
-        return view('pages.products', ['products' => $products, 'cartItems' => $cartItems]);
+        if ($user) {
+            // Get all cart items for the logged-in user
+            $cartItems = Cart::where('user_id', $user->id)->get();
+            return view('pages.products', ['products' => $products, 'cartItems' => $cartItems]);
+        } else {
+            return view('pages.products', ['products' => $products]);
+        }
     }
 
     public function filter(Request $request)
     {
         $user = Auth::user();
-
-        if (!$user) {
-            // Handle case where user is not authenticated
-            return redirect()->route('login')->withErrors(['login' => 'Please login to view your cart.']);
-        }
-
-        // Get all cart items for the logged-in user
-        $cartItems = Cart::where('user_id', $user->id)->get();
 
         $category = $request->input('category');
         $minPrice = $request->input('min_price');
@@ -107,20 +109,18 @@ class ControlerUser extends Controller
             return $query->where('category', $category);
         })->get();
 
-        return view('pages.products', ['products' => $products, 'cartItems' => $cartItems]);
+        if ($user) {
+            // Get all cart items for the logged-in user
+            $cartItems = Cart::where('user_id', $user->id)->get();
+            return view('pages.products', ['products' => $products, 'cartItems' => $cartItems]);
+        } else {
+            return view('pages.products', ['products' => $products]);
+        }
     }
 
     public function filter2(string $category)
     {
         $user = Auth::user();
-
-        if (!$user) {
-            // Handle case where user is not authenticated
-            return redirect()->route('login')->withErrors(['login' => 'Please login to view your cart.']);
-        }
-
-        // Get all cart items for the logged-in user
-        $cartItems = Cart::where('user_id', $user->id)->get();
 
         $kategori = $category;
 
@@ -128,20 +128,19 @@ class ControlerUser extends Controller
             return $query->where('category', $kategori);
         })->get();
 
-        return view('pages.products', ['products' => $products, 'cartItems' => $cartItems]);
+        if ($user) {
+            // Get all cart items for the logged-in user
+            $cartItems = Cart::where('user_id', $user->id)->get();
+            return view('pages.products', ['products' => $products, 'cartItems' => $cartItems]);
+        } else {
+            return view('pages.products', ['products' => $products]);
+        }
+
     }
 
     public function single_product(string $id)
     {
         $user = Auth::user();
-
-        if (!$user) {
-            // Handle case where user is not authenticated
-            return redirect()->route('login')->withErrors(['login' => 'Please login to view your cart.']);
-        }
-
-        // Get all cart items for the logged-in user
-        $cartItems = Cart::where('user_id', $user->id)->get();
 
         $product = Product::find($id);
 
@@ -155,73 +154,83 @@ class ControlerUser extends Controller
             $checkStock['stock'] = 'In Stock';
         }
 
-
-        return view('pages.single_product', ['product' => $product, 'check' => $checkStock, 'cartItems' => $cartItems]);
+        if ($user) {
+            // Get all cart items for the logged-in user
+            $cartItems = Cart::where('user_id', $user->id)->get();
+            return view('pages.single_product', ['product' => $product, 'check' => $checkStock, 'cartItems' => $cartItems]);
+        } else {
+            return view('pages.single_product', ['product' => $product, 'check' => $checkStock]);
+        }
     }
 
     public function carts(Request $request)
     {
+        $user = Auth::user();
+
         $user_id = $request->input('user_id');
         $product_id = $request->input('product_id');
         $quantity = $request->input('quantity');
 
-        $cart = new cart([
-            'user_id' => $user_id,
-            'product_id' => $product_id,
-            'quantity' => $quantity
-        ]);
-
-        $cart->save();
-
-        return back()->with('success', 'Product has been added to your cart!');
+        if ($user) {
+            $cart = new cart([
+                'user_id' => $user_id,
+                'product_id' => $product_id,
+                'quantity' => $quantity
+            ]);
+            $cart->save();
+            return back()->with('success', 'Product has been added to your cart!');
+        } else {
+            return back()->with('error', 'You should login first!');
+        }
     }
 
     public function cart()
     {
         $user = Auth::user();
 
-        if (!$user) {
-            // Handle case where user is not authenticated
-            return redirect()->route('login')->withErrors(['login' => 'Please login to view your cart.']);
-        }
+        if ($user) {
+            // Get all cart items for the logged-in user
+            $cartItems = Cart::where('user_id', $user->id)->get();
 
-        // Get all cart items for the logged-in user
-        $cartItems = Cart::where('user_id', $user->id)->get();
+            // Get all products related to the cart items
+            $productIds = $cartItems->pluck('product_id');
+            $products = Product::whereIn('id', $productIds)->get();
 
-        // Get all products related to the cart items
-        $productIds = $cartItems->pluck('product_id');
-        $products = Product::whereIn('id', $productIds)->get();
+            // Calculate total quantity
+            $totalQuantity = $cartItems->sum('quantity');
 
-        // Calculate total quantity
-        $totalQuantity = $cartItems->sum('quantity');
+            // Calculate total items
+            $totalItems = $cartItems->count();
 
-        // Calculate total items
-        $totalItems = $cartItems->count();
+            // Initialize stock status array
+            $stockStatus = [];
 
-        // Initialize stock status array
-        $stockStatus = [];
+            // Calculate total price
+            $totalPrice = 0;
+            foreach ($cartItems as $cartItem) {
+                $product = $products->where('id', $cartItem->product_id)->first();
+                if ($product) {
+                    $totalPrice += $product->price * $cartItem->quantity;
 
-        // Calculate total price
-        $totalPrice = 0;
-        foreach ($cartItems as $cartItem) {
-            $product = $products->where('id', $cartItem->product_id)->first();
-            if ($product) {
-                $totalPrice += $product->price * $cartItem->quantity;
-
-                // Check stock status
-                $stockStatus[$product->id] = $product->stock > 0 ? 'In Stock' : 'Stock Empty';
+                    // Check stock status
+                    $stockStatus[$product->id] = $product->stock > 0 ? 'In Stock' : 'Stock Empty';
+                }
             }
-        }
 
-        return view('pages.carts', [
-            'carts' => $products,
-            'quantity' => $totalQuantity,
-            'cartItems' => $cartItems,
-            'totalItems' => $totalItems,
-            'totalPrice' => $totalPrice,
-            'stockStatus' => $stockStatus
-        ]);
+            return view('pages.carts', [
+                'carts' => $products,
+                'quantity' => $totalQuantity,
+                'cartItems' => $cartItems,
+                'totalItems' => $totalItems,
+                'totalPrice' => $totalPrice,
+                'stockStatus' => $stockStatus
+            ]);
+        } else {
+            return view('pages.carts');
+
+        }
     }
+
 
     public function deletecart(string $id)
     {
@@ -239,14 +248,13 @@ class ControlerUser extends Controller
     {
         $user = Auth::user();
 
-        if (!$user) {
-            // Handle case where user is not authenticated
-            return redirect()->route('login')->withErrors(['login' => 'Please login to view your cart.']);
+        if ($user) {
+            // Get all cart items for the logged-in user
+            $cartItems = Cart::where('user_id', $user->id)->get();
+
+            return view('pages.about_us', ['cartItems' => $cartItems]);
+        } else {
+            return view('pages.about_us');
         }
-
-        // Get all cart items for the logged-in user
-        $cartItems = Cart::where('user_id', $user->id)->get();
-
-        return view('pages.about_us', ['cartItems' => $cartItems]);
     }
 }

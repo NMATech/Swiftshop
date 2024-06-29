@@ -51,21 +51,6 @@
                     <button class="w-[90%] rounded-full bg-[#1679AB] hover:bg-[#1679AB]/80">Buy Now</button>
                 </div>
             </form>
-
-            @if (session('success'))
-                <div id="success-notification" class="fixed top-0 left-0 w-full bg-green-500 text-white text-center p-4">
-                    {{ session('success') }}
-                </div>
-                <script>
-                    // Remove the notification after 3 seconds
-                    setTimeout(function() {
-                        var notification = document.getElementById('success-notification');
-                        if (notification) {
-                            notification.style.display = 'none';
-                        }
-                    }, 3000);
-                </script>
-            @endif
         </div>
     </div>
 @endsection
