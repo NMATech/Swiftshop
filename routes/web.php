@@ -32,6 +32,7 @@ Route::get('/about_us', [ControlerUser::class, 'about_us'])->name('about_us');
 Route::post('/add_to_cart', [ControlerUser::class, 'carts'])->name('cart');
 Route::get('/carts', [ControlerUser::class, 'cart'])->name('carts');
 Route::get('/delete_cart_{id}', [ControlerUser::class, 'deletecart'])->name('delete_cart');
+Route::post('/checkout', [ControlerUser::class, 'checkout'])->name('checkout');
 
 Route::get('/admin', function () {
     return view('admin.pages.home');

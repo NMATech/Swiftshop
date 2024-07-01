@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Users;
 use App\Models\cart;
+use App\Models\order;
+use App\Models\orderItem;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 
@@ -226,8 +228,7 @@ class ControlerUser extends Controller
                 'stockStatus' => $stockStatus
             ]);
         } else {
-            return view('pages.carts');
-
+            return redirect()->back()->with('error', 'You should login first!');
         }
     }
 
@@ -242,6 +243,51 @@ class ControlerUser extends Controller
         }
 
         return redirect()->back()->with('error', "Can't find any product!");
+    }
+
+    public function checkout(Request $request)
+    {
+        $user = Auth::user();
+        $address = $request->input('address');
+
+        if (!$user) {
+            return redirect()->back()->with('error', 'You should login first!');
+        } else {
+            // Get all cart items for the logged-in user
+            $cartItems = Cart::where('user_id', $user->id)->get();
+
+            if ($cartItems->isEmpty()) {
+                return redirect()->back()->with('error', 'Your cart is empty.');
+            }
+
+            // Get all products related to the cart items
+            $productIds = $cartItems->pluck('product_id');
+            $products = Product::whereIn('id', $productIds)->get();
+
+            // Create a new order
+            $order = order::create([
+                'number_order' => uniqid('order_'),
+                'user_id' => $user->id,
+                'address' => $address, // Assuming user has an address field
+            ]);
+
+            // Create order items from cart items
+            foreach ($cartItems as $cartItem) {
+                $product = $products->where('id', $cartItem->product_id)->first();
+                orderItem::create([
+                    'order_id' => $order->id,
+                    'product_id' => $cartItem->product_id,
+                    'quantity' => $cartItem->quantity,
+                    'price' => $product->price,
+                ]);
+            }
+
+            // Clear the cart
+            Cart::where('user_id', $user->id)->delete();
+
+            return redirect()->back()->with('success', 'Your order has been placed successfully.');
+        }
+
     }
 
     public function about_us()
