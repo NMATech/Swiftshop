@@ -290,6 +290,63 @@ class ControlerUser extends Controller
 
     }
 
+    public function order()
+    {
+        $user = Auth::user();
+
+        if (!$user) {
+            return redirect()->back()->with('error', 'You should login first!');
+        }
+
+        // Get all cart items for the logged-in user
+        $cartItems = Cart::where('user_id', $user->id)->get();
+
+        // Get all orders for the logged-in user
+        $orderDetails = Order::where('user_id', $user->id)->get();
+
+        $orderItemsList = [];
+
+        foreach ($orderDetails as $order) {
+            $orderItems = OrderItem::where('order_id', $order->id)->get();
+            foreach ($orderItems as $orderItem) {
+                $product = Product::find($orderItem->product_id);
+                $orderItemsList[] = [
+                    'order' => $order,
+                    'orderItem' => $orderItem,
+                    'product' => $product
+                ];
+            }
+        }
+
+        return view('pages.order', [
+            'orderDetails' => $orderDetails,
+            'cartItems' => $cartItems,
+            'orderItemsList' => $orderItemsList
+        ]);
+    }
+
+    public function update_profile(Request $request)
+    {
+        $user = Auth::user();
+
+        if (!$user) {
+            session()->flash('error', 'User not authenticated');
+            return response()->json(['success' => false]);
+        }
+
+        $request->validate([
+            'fname' => 'required|string|max:255',
+            'lname' => 'required|string|max:255',
+        ]);
+
+        $user->fname = $request->input('fname');
+        $user->lname = $request->input('lname');
+        $user->save();
+
+        session()->flash('success', 'Profile updated successfully');
+        return response()->json(['success' => true]);
+    }
+
     public function about_us()
     {
         $user = Auth::user();

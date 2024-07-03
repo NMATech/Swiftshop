@@ -33,6 +33,8 @@ Route::post('/add_to_cart', [ControlerUser::class, 'carts'])->name('cart');
 Route::get('/carts', [ControlerUser::class, 'cart'])->name('carts');
 Route::get('/delete_cart_{id}', [ControlerUser::class, 'deletecart'])->name('delete_cart');
 Route::post('/checkout', [ControlerUser::class, 'checkout'])->name('checkout');
+Route::get('/orders', [ControlerUser::class, 'order'])->name('order.page');
+Route::post('/update_profile', [ControlerUser::class, 'update_profile'])->name('update.profile');
 
 Route::get('/admin', function () {
     return view('admin.pages.home');

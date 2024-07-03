@@ -90,23 +90,39 @@
 
     {{-- card container profile --}}
     <div id="profileContainer"
-        class="hidden w-[200px] flex flex-col gap-[10px] bg-[#151515] absolute top-0 right-0 mt-[40px] p-2 rounded-tl-2xl rounded-bl-2xl text-white transition-transform transform -translate-x-full opacity-0">
+        class="hidden w-[300px] flex flex-col gap-[10px] bg-[#151515] absolute top-0 right-0 mt-[40px] p-2 rounded-tl-2xl rounded-bl-2xl text-white transition-transform transform -translate-x-full opacity-0">
         <div>
-            <div>
-                <h1>First name</h1>
-                @if (isset($logged_in_user))
-                    <h1>{{ $logged_in_user->fname }}</h1>
-                @endif
-            </div>
-            <div>
-                <h1>Last name</h1>
-                @if (isset($logged_in_user))
-                    <h1>{{ $logged_in_user->lname }}</h1>
-                @endif
-            </div>
+            <h1>Profile Information</h1>
+            <form id="profileUpdateForm" method="POST">
+                @csrf
+                <div>
+                    <label for="fname">First Name</label>
+                    <input type="text" id="fname" name="fname" value="{{ $logged_in_user->fname ?? '' }}"
+                        class="w-full border border-gray-400 p-1 mt-1 text-black">
+                </div>
+                <div>
+                    <label for="lname">Last Name</label>
+                    <input type="text" id="lname" name="lname" value="{{ $logged_in_user->lname ?? '' }}"
+                        class="w-full border border-gray-400 p-1 mt-1 text-black">
+                </div>
+                <div class="mt-2">
+                    <button type="button" id="updateProfileBtn"
+                        class="bg-blue-500 py-1 px-3 rounded text-white">Update</button>
+                </div>
+            </form>
         </div>
+        <a href="/orders">
+            <div class="w-full flex items-center p-1 hover:border hover:border-[#e72929] rounded-xl mt-2">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                    stroke="currentColor" class="size-6">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M15.75 10.5V6a3.75 3.75 0 1 0-7.5 0v4.5m11.356-1.993 1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 0 1-1.12-1.243l1.264-12A1.125 1.125 0 0 1 5.513 7.5h12.974c.576 0 1.059.435 1.119 1.007ZM8.625 10.5a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm7.5 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
+                </svg>
+                <h1>Order</h1>
+            </div>
+        </a>
         <a href="/logout">
-            <div class="w-full flex items-center">
+            <div class="w-full flex items-center p-1 hover:border hover:border-[#e72929] rounded-xl mt-2">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                     stroke="currentColor" class="size-6">
                     <path stroke-linecap="round" stroke-linejoin="round"
@@ -210,6 +226,34 @@
 
     {{-- Javascript --}}
     <script>
+        document.getElementById('updateProfileBtn').addEventListener('click', function(e) {
+            e.preventDefault();
+
+            const form = document.getElementById('profileUpdateForm');
+            const formData = new FormData(form);
+
+            fetch('{{ route('update.profile') }}', {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': formData.get('_token'),
+                        'Accept': 'application/json',
+                    },
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        // Reload the page to display session messages
+                        location.reload();
+                    } else {
+                        alert('Failed to update profile');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        });
+
         document.addEventListener('DOMContentLoaded', function() {
             var profileButton = document.getElementById('profileButton');
             var profileContainer = document.getElementById('profileContainer');
