@@ -8,8 +8,10 @@ use App\Models\Users;
 use App\Models\cart;
 use App\Models\order;
 use App\Models\orderItem;
+use App\Models\ContactSubmission;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class ControlerUser extends Controller
 {
@@ -359,5 +361,44 @@ class ControlerUser extends Controller
         } else {
             return view('pages.about_us');
         }
+    }
+
+    public function contact_us()
+    {
+        $user = Auth::user();
+
+        if ($user) {
+            // Get all cart items for the logged-in user
+            $cartItems = Cart::where('user_id', $user->id)->get();
+
+            return view('pages.contact_us', ['cartItems' => $cartItems]);
+        } else {
+            return view('pages.contact_us');
+        }
+    }
+
+    public function submitContactForm(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email',
+            'message' => 'required|string',
+        ]);
+
+        // Save to database
+        ContactSubmission::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'message' => $request->message,
+        ]);
+
+        // Optionally, send an email
+        Mail::raw($request->message, function ($message) use ($request) {
+            $message->to('managermamang@gmail.com')
+                ->subject('Contact Us Message')
+                ->from($request->email, $request->name);
+        });
+
+        return redirect()->route('contact.show')->with('success', 'Your message has been sent successfully!');
     }
 }

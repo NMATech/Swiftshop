@@ -35,6 +35,8 @@ Route::get('/delete_cart_{id}', [ControlerUser::class, 'deletecart'])->name('del
 Route::post('/checkout', [ControlerUser::class, 'checkout'])->name('checkout');
 Route::get('/orders', [ControlerUser::class, 'order'])->name('order.page');
 Route::post('/update_profile', [ControlerUser::class, 'update_profile'])->name('update.profile');
+Route::get('/contact_us', [ControlerUser::class, 'contact_us'])->name('update.profile');
+Route::post('/contact', [ControlerUser::class, 'submitContactForm'])->name('contact.submit');
 
 Route::get('/admin', function () {
     return view('admin.pages.home');

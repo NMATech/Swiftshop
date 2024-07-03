@@ -32,7 +32,7 @@
                     <a href="/about_us" class="hover:border-b-2 hover:border-[#E72929]">About Us</a>
                 </li>
                 <li>
-                    <a href="" class="hover:border-b-2 hover:border-[#E72929]">Contact Us</a>
+                    <a href="/contact_us" class="hover:border-b-2 hover:border-[#E72929]">Contact Us</a>
                 </li>
             </ul>
         </div>
