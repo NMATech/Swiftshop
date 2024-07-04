@@ -2,14 +2,28 @@
 
 @section('content')
     <div class="container mx-auto p-2">
-        <div>
+        <div class="p-2">
             <h1 class="text-2xl font-bold mb-4">Data Product</h1>
             <a href="{{ route('products.create') }}">
                 <button type="submit"
-                    class="bg-[#e72929] hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                    class="bg-[#e72929] hover:bg-[#e72929]/80 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
                     Tambah Produk
                 </button>
             </a>
+        </div>
+        <div class="w-full mt-[20px] mb-[20px]">
+            <form action="{{ route('products.index') }}" method="GET" class="w-full flex justify-end items-center gap-[5px]">
+                @csrf
+                <input type="text" name="search" id="search" placeholder="Search by name"
+                    class="border border-gray-400 p-1 focus:outline-none focus:ring-[#E72929] focus:ring-1 focus:border-none">
+                <button type="submit">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                        stroke="currentColor" class="size-6">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+                    </svg>
+                </button>
+            </form>
         </div>
         <div class="overflow-x-auto">
             <table class="min-w-full bg-white">

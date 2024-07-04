@@ -12,9 +12,17 @@ class CreateProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $products = Product::all();
+        // Get the search keyword
+        $searchKeyword = $request->input('search');
+
+        // Fetch products, filtering by name if a search keyword is provided
+        $products = Product::when($searchKeyword, function ($query, $searchKeyword) {
+            return $query->where('name', 'like', '%' . $searchKeyword . '%');
+        })->get();
+
+        // Pass the data to the view
         return view('admin.pages.product', compact('products'));
     }
 

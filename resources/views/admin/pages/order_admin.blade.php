@@ -47,11 +47,11 @@
             <tbody>
                 @foreach ($orders as $order)
                     @foreach ($order->orderItems as $orderItem)
-                        <tr>
+                        <tr class="text-center">
                             <td class="py-2 px-4 border-b">{{ $order->number_order }}</td>
                             <td class="py-2 px-4 border-b">{{ $order->created_at->format('F j, Y') }}</td>
-                            <td class="py-2 px-4 border-b">{{ $order->user->name }}</td>
-                            <td class="py-2 px-4 border-b">alamat</td>
+                            <td class="py-2 px-4 border-b">{{ $order->user->fname }}</td>
+                            <td class="py-2 px-4 border-b">{{ $order->address }}</td>
                             <td class="py-2 px-4 border-b">{{ $orderItem->product->name }}</td>
                             <td class="py-2 px-4 border-b">{{ $orderItem->product->category }}</td>
                             <td class="py-2 px-4 border-b">{{ $orderItem->quantity }}</td>
