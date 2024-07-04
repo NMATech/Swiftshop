@@ -13,4 +13,14 @@ class order extends Model
         'user_id',
         'address',
     ];
+
+    public function orderItems()
+    {
+        return $this->hasMany(OrderItem::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(Users::class);
+    }
 }

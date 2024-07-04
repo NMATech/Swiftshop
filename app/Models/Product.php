@@ -17,4 +17,9 @@ class Product extends Model
         'stock',
         'image_path',
     ];
+
+    public function orderItems()
+    {
+        return $this->hasMany(OrderItem::class);
+    }
 }

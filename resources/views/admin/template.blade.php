@@ -20,7 +20,7 @@
             <div class="mt-[30px]">
                 <ul class="flex flex-col gap-[10px]">
                     <li>
-                        <a href="">
+                        <a href="/admin">
                             <div
                                 class="flex justify-start items-center gap-[5px] text-white hover:bg-[#dfdfdf] hover:text-[#E72929] p-1 rounded-lg">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -46,7 +46,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="">
+                        <a href="/admin/order">
                             <div
                                 class="flex justify-start items-center gap-[5px] text-white hover:bg-[#dfdfdf] hover:text-[#E72929] p-1 rounded-lg">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"

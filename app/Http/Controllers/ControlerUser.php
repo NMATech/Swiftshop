@@ -280,8 +280,10 @@ class ControlerUser extends Controller
                     'order_id' => $order->id,
                     'product_id' => $cartItem->product_id,
                     'quantity' => $cartItem->quantity,
-                    'price' => $product->price,
+                    'price' => $product->price * $cartItem->quantity,
                 ]);
+                $product->stock -= $cartItem->quantity;
+                $product->save();
             }
 
             // Clear the cart

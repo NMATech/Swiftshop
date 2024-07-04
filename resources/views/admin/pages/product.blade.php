@@ -6,7 +6,7 @@
             <h1 class="text-2xl font-bold mb-4">Data Product</h1>
             <a href="{{ route('products.create') }}">
                 <button type="submit"
-                    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                    class="bg-[#e72929] hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
                     Tambah Produk
                 </button>
             </a>
@@ -19,7 +19,6 @@
                         <th class="py-2 px-4 border-b">Nama</th>
                         <th class="py-2 px-4 border-b">Kategori</th>
                         <th class="py-2 px-4 border-b">Harga</th>
-                        <th class="py-2 px-4 border-b">Diskon</th>
                         <th class="py-2 px-4 border-b">Stok</th>
                         <th class="py-2 px-4 border-b">Deskripsi</th>
                         <th class="py-2 px-4 border-b">Gambar</th>
@@ -33,7 +32,6 @@
                             <td class="py-2 px-4 border-b">{{ $product->name }}</td>
                             <td class="py-2 px-4 border-b">{{ $product->category }}</td>
                             <td class="py-2 px-4 border-b">${{ number_format($product->price, 2) }}</td>
-                            <td class="py-2 px-4 border-b">{{ $product->sale }}%</td>
                             <td class="py-2 px-4 border-b">{{ $product->stock }}</td>
                             <td class="py-2 px-4 border-b">{{ $product->description }}</td>
                             <td class="py-2 px-4 border-b">

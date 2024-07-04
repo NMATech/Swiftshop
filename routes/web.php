@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CreateProductController;
 use App\Http\Controllers\ControlerUser;
 use App\Http\Controllers\authController;
+use App\Http\Controllers\controllerAdmin;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,13 +39,12 @@ Route::post('/update_profile', [ControlerUser::class, 'update_profile'])->name('
 Route::get('/contact_us', [ControlerUser::class, 'contact_us'])->name('update.profile');
 Route::post('/contact', [ControlerUser::class, 'submitContactForm'])->name('contact.submit');
 
-Route::get('/admin', function () {
-    return view('admin.pages.home');
-});
 
+Route::get('/admin', [controllerAdmin::class, 'index']);
 Route::get('/products/create', [CreateProductController::class, 'create'])->name('products.create');
 Route::post('/products', [CreateProductController::class, 'store'])->name('products.store');
 Route::get('/products', [CreateProductController::class, 'index'])->name('products.index');
 Route::get('/products/delete/{id}', [CreateProductController::class, 'destroy'])->name('products.destroy');
 Route::get('/products/{id}/edit', [CreateProductController::class, 'edit'])->name('products.edit');
 Route::put('/products/{id}', [CreateProductController::class, 'update'])->name('products.update');
+Route::get('/admin/order', [controllerAdmin::class, 'order'])->name('admin.orders');
